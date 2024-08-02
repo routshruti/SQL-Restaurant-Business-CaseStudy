@@ -9,7 +9,7 @@ ORDER BY customer_id
 
 --2. How many days has each customer visited the restaurant?
 
-SELECT customer_id, COUNT(DISTINCT order_date) AS no_of_visited_days
+SELECT customer_id, COUNT(DISTINCT order_date) AS visited_days
 FROM sales
 GROUP BY customer_id
 ORDER BY customer_id
@@ -29,7 +29,7 @@ GROUP BY customer_id, product_name
 
 --4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
-SELECT product_name, COUNT(s.product_id) AS most_purchase_item
+SELECT product_name, COUNT(s.product_id) AS product_count
 FROM sales AS s
 JOIN menu AS m
     ON s.product_id = m.product_id
@@ -107,7 +107,7 @@ JOIN menu AS m
 GROUP BY customer_id
 ORDER BY customer_id
 
---10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+--10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customers A and B have at the end of January?
 
 WITH CTE AS
      (SELECT s.customer_id, product_id, order_date, join_date,
@@ -135,6 +135,8 @@ ORDER BY customer_id
 -- Add information about the ranking of customer products.
 -- Note: The client purposely does not need the ranking for non-member purchases so he expects null ranking values for the records when customers are not yet part of the loyalty program.
 
+DROP TABLE IF EXISTS diner_info;
+CREATE TABLE diner_info AS
 WITH cte AS
 	(SELECT s.customer_id, order_date, product_name, price,
 	 CASE
