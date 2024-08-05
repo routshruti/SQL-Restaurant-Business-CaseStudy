@@ -148,10 +148,13 @@ CEO/Founder
 
 
 ### Topics Covered:
+- Basic Commands
 - Table Joins
-- Group By Aggregates
+- Date-Time Manipulation
+- Group By
+- Aggregate Functions
 - CTE
-- Window Function (rank)
+- Window Functions
 
 ### Tools Used:
 - PostgreSQL
